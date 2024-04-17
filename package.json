@@ -1,0 +1,18 @@
+{
+  "name": "back-end-web-development-task2-part1-api",
+  "version": "1.0.0",
+  "description": "back end web development repository for second task - part 1 (Express &amp;&amp; nodejs)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "sabrin",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql": "^2.18.1"
+  }
+}
