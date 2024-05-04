@@ -3,23 +3,20 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
 
-
 const pool = mysql.createPool({
-    connectionLimit: 10,
+    // connectionLimit: 10,
     // host: "localhost",
     // user: "root",
     // password: "",
-    // database: "cv",
+    // database: "cv"
 
-    host: "sql6.freesqldatabase.com",
-    port: 3306,
-    user: "sql6699922",
-    password: "VcNcnsXkxd",
-    database: "sql6699922"
+    host: "iyd.h.filess.io",
+    user: "cv_voicecave",
+    password: "dff1507662ee31fb0c3736e83203c2588fea0039",
+    port: 3305,
+    database: "cv_voicecave",
 });
 
-
-// Create Express app
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,67 +29,74 @@ app.use(cors());
 // }));
 
 app.get('/', (req, res) => {
-    res.redirect('/courses');
+    res.redirect('/workexperience');
 });
 
-
-
-// Route for getting all courses
-app.get('/courses', (req, res) => {
-    pool.query('SELECT * FROM courses', (error, results) => {
+// Route for getting all work experiences
+app.get('/workexperience', (req, res) => {
+    pool.query('SELECT * FROM workexperience', (error, results) => {
         if (error) throw error;
         res.json(results);
     });
 });
 
-// Route for creating a new course
-app.post('/courses', (req, res) => {
-    const { courseCode, courseName, syllabus, progression } = req.body;
-    pool.query('INSERT INTO courses (course_code, course_name, syllabus, progression) VALUES (?, ?, ?, ?)',
-        [courseCode, courseName, syllabus, progression],
+// Route for creating a new work experience
+app.post('/workexperience', (req, res) => {
+    const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
+    
+    // Validate input
+    if (!companyname || !jobtitle || !location || !startdate || !enddate) {
+        return res.status(400).json({ message: 'All fields except description are required' });
+    }
+
+    pool.query('INSERT INTO workexperience (companyname, jobtitle, location, startdate, enddate, description) VALUES (?, ?, ?, ?, ?, ?)',
+        [companyname, jobtitle, location, startdate, enddate, description],
         (error, results) => {
-        if (error) throw error;
-        res.json({ message: 'Course created successfully', id: results.insertId });
+            if (error) throw error;
+            res.status(201).json({ message: 'Work experience created successfully', id: results.insertId });
         });
 });
 
-// Route for updating a course
-app.put('/courses/:id', (req, res) => {
-    const courseId = req.params.id;
-    const { courseCode, courseName, syllabus, progression } = req.body;
-    pool.query('UPDATE courses SET course_code=?, course_name=?, syllabus=?, progression=? WHERE id=?',
-        [courseCode, courseName, syllabus, progression, courseId],
+// Route for updating a work experience
+app.put('/workexperience/:id', (req, res) => {
+    const workId = req.params.id;
+    const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
+    
+    // Validate input
+    if (!companyname || !jobtitle || !location || !startdate || !enddate) {
+        return res.status(400).json({ message: 'All fields except description are required' });
+    }
+
+    pool.query('UPDATE workexperience SET companyname=?, jobtitle=?, location=?, startdate=?, enddate=?, description=? WHERE id=?',
+        [companyname, jobtitle, location, startdate, enddate, description, workId],
         (error, results) => {
-        if (error) throw error;
-        res.json({ message: 'Course updated successfully' });
+            if (error) throw error;
+            res.json({ message: 'Work experience updated successfully' });
         });
 });
 
-// Route for deleting a course
-app.delete('/courses/:id', (req, res) => {
-    const courseId = req.params.id;
-    pool.query('DELETE FROM courses WHERE id=?', [courseId], (error, results) => {
+// Route for deleting a work experience
+app.delete('/workexperience/:id', (req, res) => {
+    const workId = req.params.id;
+    pool.query('DELETE FROM workexperience WHERE id=?', [workId], (error, results) => {
         if (error) throw error;
-        res.json({ message: 'Course deleted successfully' });
+        res.json({ message: 'Work experience deleted successfully' });
     });
 });
 
-
-// Route for getting details of a specific course
-app.get('/courses/:id', (req, res) => {
-    const courseId = req.params.id;
-    pool.query('SELECT * FROM courses WHERE id = ?', [courseId], (error, results) => {
+// Route for getting details of a specific work experience
+app.get('/workexperience/:id', (req, res) => {
+    const workId = req.params.id;
+    pool.query('SELECT * FROM workexperience WHERE id = ?', [workId], (error, results) => {
         if (error) throw error;
         if (results.length > 0) {
             res.json(results[0]);
         } else {
-            res.status(404).json({ message: 'Course not found' });
+            res.status(404).json({ message: 'Work experience not found' });
         }
     });
 });
 
-
-// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);

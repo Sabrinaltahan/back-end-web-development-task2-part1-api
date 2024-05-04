@@ -1,6 +1,6 @@
+# Course Management API
 
-
-This repository contains code for a simple REST API built with Express. The API is designed to manage various courses that I have studied during my time at the University.
+This repository contains code for a simple REST API built with Express. The API is designed to manage various courses.
 
 Basic CRUD (Create, Read, Update, Delete) functionality is implemented.
 
@@ -8,7 +8,7 @@ Basic CRUD (Create, Read, Update, Delete) functionality is implemented.
 
 A live version of the API is available at the following URL: [https://localhost:3000/courses](https://localhost:3000/courses)
 
-## Installation, Database
+## Installation and Database
 
 The API uses a MySQL database.
 Clone the source code files, run the command `npm install` to install necessary npm packages. Run the installation script `install.js`.
@@ -16,7 +16,7 @@ The installation script creates database tables as follows:
 
 | Table Name | Fields                      |
 |------------|-----------------------------|
-| courses    | **id** (int(11)), **course_code** (varchar(256)), **course_name** (varchar(256)), **syllabus** (text), **progression** (varchar(256)) |
+| workexperience    | **id** (int(11)), **companyname** (varchar(256)), **jobtitle** (varchar(256)), **location** (varchar(256)), **startdate** (date), **enddate** (date), **description** (text) |
 
 ## Usage
 
@@ -24,17 +24,19 @@ Below is how to access the API in various ways:
 
 | Method | Endpoint       | Description                                                                              |
 |--------|----------------|------------------------------------------------------------------------------------------|
-| GET    | /courses       | Retrieves all available courses.                                                         |
-| GET    | /courses/:ID   | Retrieves a specific course with the specified ID.                                       |
-| POST   | /courses       | Stores a new course. Requires a course object to be sent with the request.               |
-| PUT    | /courses/:ID   | Updates an existing course with the specified ID. Requires a course object to be sent.   |
-| DELETE | /courses/:ID   | Deletes a course with the specified ID.                                                  |
+| GET    | /workexperience       | Retrieves all available work experiences.                                                         |
+| GET    | /workexperience/:ID   | Retrieves a specific work experience with the specified ID.                                       |
+| POST   | /workexperience       | Stores a new work experience. Requires a work experience object to be sent with the request.               |
+| PUT    | /workexperience/:ID   | Updates an existing work experience with the specified ID. Requires a work experience object to be sent.   |
+| DELETE | /workexperience/:ID   | Deletes a work experience with the specified ID.                                                  |
 
-A course object is returned/sent as JSON with the following structure:
+A work experience object is returned/sent as JSON with the following structure:
 
 {
-   "courseCode": "DT207G",
-   "courseName": "Backend-based development",
-   "progression": "B",
-   "syllabus": "[https://www.example.com/syllabus](https://www.example.com/syllabus)"
+   "companyname": "ABC Company",
+   "jobtitle": "Software Engineer",
+   "location": "New York",
+   "startdate": "2022-01-01",
+   "enddate": "2023-01-01",
+   "description": "Worked on developing web applications"
 }
