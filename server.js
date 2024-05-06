@@ -4,17 +4,17 @@ const cors = require('cors');
 const mysql = require('mysql');
 
 const pool = mysql.createPool({
-    // connectionLimit: 10,
-    // host: "localhost",
-    // user: "root",
-    // password: "",
-    // database: "cv"
+    host: "emaarco.ch",
+    user: "cvdbuser",
+    password: "q!r2J84q6",
+    database: "emaarcocha_cvdb",
+    port: 3306
 
-    host: "iyd.h.filess.io",
-    user: "cv_voicecave",
-    password: "dff1507662ee31fb0c3736e83203c2588fea0039",
-    port: 3305,
-    database: "cv_voicecave",
+    // host: "iyd.h.filess.io",
+    // user: "cv_voicecave",
+    // password: "dff1507662ee31fb0c3736e83203c2588fea0039",
+    // port: 3305,
+    // database: "cv_voicecave",
 });
 
 const app = express();
